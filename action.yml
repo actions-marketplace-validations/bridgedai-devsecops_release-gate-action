@@ -1,0 +1,48 @@
+name: 'BridgedAI Release Gate'
+description: 'Enforce BridgedAI policy decisions with observe/warn/enforce modes.'
+branding:
+  icon: 'shield'
+  color: 'red'
+inputs:
+  decision:
+    description: 'ALLOW | WARN | BLOCK'
+    required: true
+  score:
+    description: 'Numeric score (stringified number).'
+    required: true
+  reason:
+    description: 'Human-readable reason.'
+    required: false
+    default: ''
+  mode:
+    description: 'observe | warn | enforce'
+    required: false
+    default: 'enforce'
+  minimum-score:
+    description: 'Minimum score required when enforcing.'
+    required: false
+    default: '0'
+  fail-on-warn:
+    description: 'In warn mode, fail if decision is WARN.'
+    required: false
+    default: 'false'
+  output-summary:
+    description: 'Whether to write an additional Markdown section to the job summary.'
+    required: false
+    default: 'true'
+  trust-graph-url:
+    description: 'Optional trust graph URL for summary output.'
+    required: false
+    default: ''
+  policy-result-file:
+    description: 'Optional policy result JSON path for summary context.'
+    required: false
+    default: ''
+outputs:
+  enforced:
+    description: 'true if the gate would fail in enforce mode for the same inputs.'
+  outcome:
+    description: 'pass | warn | fail'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
