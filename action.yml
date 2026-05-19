@@ -1,5 +1,6 @@
 name: 'BridgedAI Release Gate'
 description: 'Enforce BridgedAI policy decisions with observe/warn/enforce modes.'
+author: 'BridgedAI'
 branding:
   icon: 'shield'
   color: 'red'
