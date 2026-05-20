@@ -39,11 +39,47 @@ inputs:
     description: 'Optional policy result JSON path for summary context.'
     required: false
     default: ''
+  integration:
+    description: 'local (default) enforces decision/score inputs; api calls POST /v1/enforcement/release-gate/evaluate.'
+    required: false
+    default: 'local'
+  access-token:
+    description: 'BridgedAI access token when integration=api.'
+    required: false
+  organization-id:
+    description: 'Organization id when integration=api.'
+    required: false
+  fail-on-deny:
+    description: 'Fail when decision is BLOCK/deny.'
+    required: false
+    default: 'true'
+  fail-on-unknown:
+    description: 'Fail when decision is unknown.'
+    required: false
+    default: 'true'
+  advisory:
+    description: 'When true, never fail the step (warn only).'
+    required: false
+    default: 'false'
 outputs:
   enforced:
     description: 'true if the gate would fail in enforce mode for the same inputs.'
   outcome:
     description: 'pass | warn | fail'
+  decision:
+    description: 'allow | warn | deny | unknown (additive normalized decision).'
+  trust-score:
+    description: 'Trust score from API or score input.'
+  decision-id:
+    description: 'Backend decision id when integration=api.'
+  policy-id:
+    description: 'Policy id used for evaluation.'
+  reason-summary:
+    description: 'Human-readable decision summary.'
+  evidence-count:
+    description: 'Evidence count from API when available.'
+  signal-count:
+    description: 'Signal count from API when available.'
 runs:
   using: 'node20'
   main: 'dist/index.js'
